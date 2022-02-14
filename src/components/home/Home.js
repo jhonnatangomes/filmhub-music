@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
+import Genres from "../genres/Genres";
 
 export default function Home() {
     return (
@@ -11,6 +12,7 @@ export default function Home() {
                     <SearchIcon />
                 </SearchBar>
             </Top>
+            <Genres />
         </Container>
     );
 }
