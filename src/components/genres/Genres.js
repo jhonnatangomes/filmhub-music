@@ -1,26 +1,28 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import { getAlbums } from "../../services/api";
+import AlbumsContext from "../../contexts/AlbumsContext";
 import Album from "../album/Album";
 import Loading from "../loading/Loading";
 import groupByGenre from "./groupByGenre";
 
 export default function Genres() {
-    const [albums, setAlbums] = useState(null);
+    const { albums } = useContext(AlbumsContext);
+    const [albumsbyGenre, setAlbumsByGenre] = useState(null);
+
     useEffect(() => {
-        getAlbums().then((res) => {
-            setAlbums(groupByGenre(res.data.feed.results));
-        });
-    }, []);
+        if (albums) {
+            setAlbumsByGenre(groupByGenre(albums));
+        }
+    }, [albums]);
 
     return (
         <>
-            {albums ? (
-                Object.keys(albums).map((genre, i) => (
+            {albumsbyGenre ? (
+                Object.keys(albumsbyGenre).map((genre, i) => (
                     <Container key={i}>
                         <GenreName>{genre}</GenreName>
                         <Albums>
-                            {albums[genre].map((album) => (
+                            {albumsbyGenre[genre].map((album) => (
                                 <Album
                                     key={album.id}
                                     imageUrl={album.artworkUrl100}

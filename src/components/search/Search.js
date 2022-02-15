@@ -2,17 +2,13 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { DebounceInput } from "react-debounce-input";
-import { useEffect, useState } from "react";
-import { getAlbums } from "../../services/api";
+import { useContext, useState } from "react";
+import AlbumsContext from "../../contexts/AlbumsContext";
 
 export default function Search() {
     const [value, setValue] = useState("");
-    const [albums, setAlbums] = useState(null);
+    const { albums } = useContext(AlbumsContext);
     const [searchResults, setSearchResults] = useState(null);
-
-    useEffect(() => {
-        getAlbums().then((res) => setAlbums(res.data.feed.results));
-    }, []);
 
     function searchAlbum(e) {
         setValue(e.target.value);

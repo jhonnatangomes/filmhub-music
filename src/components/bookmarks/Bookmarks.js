@@ -4,7 +4,6 @@ import Album from "../album/Album";
 
 export default function Bookmarks() {
     const bookmarked = LocalStorage.getValue("bookmarked");
-    console.log(bookmarked);
     return (
         <Container>
             <Title>Bookmarks</Title>
