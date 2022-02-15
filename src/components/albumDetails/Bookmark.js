@@ -1,11 +1,40 @@
 import { useState } from "react";
 import { BsFillBookmarkFill, BsBookmark } from "react-icons/bs";
 import styled from "styled-components";
+import LocalStorage from "../../helpers/LocalStorage";
 
 export default function Bookmark({ album }) {
     const [bookmarked, setBookMarked] = useState(null);
 
-    return <>{bookmarked ? <UnbookmarkIcon /> : <BookmarkIcon />}</>;
+    function bookmark() {
+        const bookmarkedLocalStorage = LocalStorage.getValue("bookmarked");
+        if (!bookmarkedLocalStorage) {
+            LocalStorage.setValue("bookmarked", [album]);
+        } else {
+            bookmarkedLocalStorage.push(album);
+            LocalStorage.setValue("bookmarked", bookmarkedLocalStorage);
+        }
+        setBookMarked(album);
+    }
+
+    function unbookmark() {
+        let bookmarkedLocalStorage = LocalStorage.getValue("bookmarked");
+        bookmarkedLocalStorage = bookmarkedLocalStorage.filter(
+            (bookmarkedAlbum) => bookmarkedAlbum.id !== album.id
+        );
+        LocalStorage.setValue("bookmarked", bookmarkedLocalStorage);
+        setBookMarked(null);
+    }
+
+    return (
+        <>
+            {bookmarked ? (
+                <UnbookmarkIcon onClick={unbookmark} />
+            ) : (
+                <BookmarkIcon onClick={bookmark} />
+            )}
+        </>
+    );
 }
 
 const BookmarkIcon = styled(BsBookmark)`

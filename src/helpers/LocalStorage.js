@@ -1,5 +1,5 @@
 export default class LocalStorage {
-    setValue(key, value) {
+    static setValue(key, value) {
         let obj;
         const appLocalStorage = localStorage.getItem("filmhub-music");
         if (appLocalStorage) {
@@ -13,7 +13,7 @@ export default class LocalStorage {
         localStorage.setItem("filmhub-music", stringifiedObj);
     }
 
-    getValue(key) {
+    static getValue(key) {
         const parsedData = JSON.parse(localStorage.getItem("filmhub-music"));
         if (!parsedData) {
             return null;
