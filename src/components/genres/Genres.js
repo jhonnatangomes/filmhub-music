@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import styled from "styled-components";
+import AlbumsContext from "../../contexts/AlbumsContext";
 import { getAlbums } from "../../services/api";
 import Album from "../album/Album";
 import groupByGenre from "./groupByGenre";
 
 export default function Genres() {
-    const [albums, setAlbums] = useState(null);
+    const { albums, setAlbums } = useContext(AlbumsContext);
     useEffect(() => {
         getAlbums().then((res) => {
             const albumsByGenre = groupByGenre(res.data.feed.results);
