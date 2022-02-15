@@ -1,10 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsFillBookmarkFill, BsBookmark } from "react-icons/bs";
 import styled from "styled-components";
 import LocalStorage from "../../helpers/LocalStorage";
 
 export default function Bookmark({ album }) {
     const [bookmarked, setBookMarked] = useState(null);
+
+    useEffect(() => {
+        const bookmarkedLocalStorage = LocalStorage.getValue("bookmarked");
+        if (
+            bookmarkedLocalStorage &&
+            bookmarkedLocalStorage.some(
+                (bookmarkedAlbum) => bookmarkedAlbum.id === album.id
+            )
+        ) {
+            setBookMarked(album);
+        }
+    }, []);
 
     function bookmark() {
         const bookmarkedLocalStorage = LocalStorage.getValue("bookmarked");
