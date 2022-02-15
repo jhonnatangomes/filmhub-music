@@ -69,14 +69,6 @@ const Container = styled.div`
 
 const AlbumAndArtist = styled.div`
     width: 450px;
-
-    p:first-child {
-        font-size: 15px;
-    }
-
-    p:last-child {
-        font-size: 12px;
-    }
 `;
 
 const AlbumPicture = styled.img`
