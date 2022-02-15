@@ -12,3 +12,7 @@ Just clone the repository in your machine:
 You can then start the project doing:
 
     npm start
+
+In order to run tests, just do:
+
+    npm run test
