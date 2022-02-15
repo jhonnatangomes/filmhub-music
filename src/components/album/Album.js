@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export default function Album({ imageUrl, albumName, artistName }) {
     return (
-        <div>
+        <Container>
             <AlbumContainer>
                 <img src={imageUrl} />
             </AlbumContainer>
@@ -10,9 +10,13 @@ export default function Album({ imageUrl, albumName, artistName }) {
                 <p>{albumName}</p>
                 <p>{artistName}</p>
             </AlbumDetails>
-        </div>
+        </Container>
     );
 }
+
+const Container = styled.div`
+    cursor: pointer;
+`;
 
 const AlbumContainer = styled.div`
     width: 100px;
@@ -28,6 +32,14 @@ const AlbumContainer = styled.div`
 `;
 
 const AlbumDetails = styled.div`
+    max-width: 100px;
+    p {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+    }
+
     p:first-child {
         font-size: 14px;
     }
