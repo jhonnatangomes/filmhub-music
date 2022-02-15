@@ -1,51 +1,36 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getSongs } from "../../services/api";
-import Song from "../song/Song";
+import { getAlbums } from "../../services/api";
+import Album from "../album/Album";
 import groupByGenre from "./groupByGenre";
 
 export default function Genres() {
-    const [songs, setSongs] = useState(null);
+    const [albums, setAlbums] = useState(null);
     useEffect(() => {
-        getSongs().then((res) => {
-            groupByGenre(res.data.feed.results);
+        getAlbums().then((res) => {
+            const albumsByGenre = groupByGenre(res.data.feed.results);
+            setAlbums(albumsByGenre);
         });
     }, []);
 
     return (
         <>
-            <Container>
-                <GenreName>Genre 1</GenreName>
-                <Songs>
-                    <Song></Song>
-                    <Song></Song>
-                    <Song></Song>
-                    <Song></Song>
-                    <Song></Song>
-                    <Song></Song>
-                    <Song></Song>
-                    <Song></Song>
-                    <Song></Song>
-                    <Song></Song>
-                    <Song></Song>
-                </Songs>
-            </Container>
-            <Container>
-                <GenreName>Genre 1</GenreName>
-                <Songs>
-                    <Song></Song>
-                    <Song></Song>
-                    <Song></Song>
-                    <Song></Song>
-                    <Song></Song>
-                    <Song></Song>
-                    <Song></Song>
-                    <Song></Song>
-                    <Song></Song>
-                    <Song></Song>
-                    <Song></Song>
-                </Songs>
-            </Container>
+            {albums &&
+                Object.keys(albums).map((genre, i) => (
+                    <Container key={i}>
+                        <GenreName>{genre}</GenreName>
+                        <Albums>
+                            {albums[genre].map((album) => (
+                                <Album
+                                    key={album.id}
+                                    imageUrl={album.artworkUrl100}
+                                    albumName={album.name}
+                                    artistName={album.artistName}
+                                />
+                            ))}
+                        </Albums>
+                    </Container>
+                ))}
         </>
     );
 }
@@ -59,7 +44,7 @@ const GenreName = styled.p`
     margin-bottom: 20px;
 `;
 
-const Songs = styled.div`
+const Albums = styled.div`
     display: flex;
     overflow-x: auto;
     overflow-y: hidden;

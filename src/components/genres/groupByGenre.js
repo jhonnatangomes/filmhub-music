@@ -1,11 +1,11 @@
-export default function groupByGenre(songs) {
+export default function groupByGenre(albums) {
     const genres = {};
-    songs.forEach((song) => {
-        const genre = song.genres.find((genre) => genre.name !== "Music").name;
+    albums.forEach((album) => {
+        const genre = album.genres.find((genre) => genre.name !== "Music").name;
         if (genres[genre] === undefined) {
             genres[genre] = [];
         }
-        genres[genre].push(song);
+        genres[genre].push(album);
     });
     return genres;
 }
