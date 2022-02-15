@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useParams } from "react-router";
 import { getAlbums } from "../../services/api";
 import Bookmark from "./Bookmark";
+import Loading from "../loading/Loading";
 
 export default function AlbumDetails() {
     const [album, setAlbum] = useState(null);
@@ -16,7 +17,11 @@ export default function AlbumDetails() {
 
     return (
         <>
-            {album !== null && (
+            {album === null ? (
+                <Container>
+                    <Loading></Loading>
+                </Container>
+            ) : (
                 <Container>
                     {album === undefined ? (
                         "Nenhum álbum encontrado"
