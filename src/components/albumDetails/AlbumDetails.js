@@ -24,7 +24,7 @@ export default function AlbumDetails() {
             ) : (
                 <Container>
                     {album === undefined ? (
-                        "Nenhum álbum encontrado"
+                        "No album found"
                     ) : (
                         <>
                             <AlbumAndArtist>

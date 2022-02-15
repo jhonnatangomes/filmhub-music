@@ -7,8 +7,6 @@ import groupByGenre from "./groupByGenre";
 
 export default function Genres() {
     const [albums, setAlbums] = useState(null);
-    console.log(albums);
-
     useEffect(() => {
         getAlbums().then((res) => {
             setAlbums(groupByGenre(res.data.feed.results));
