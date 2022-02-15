@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { DebounceInput } from "react-debounce-input";
 import { useEffect, useState } from "react";
@@ -34,13 +35,15 @@ export default function Search() {
                 <SearchResults>
                     {searchResults.length !== 0
                         ? searchResults.map((result) => (
-                              <Result key={result.id}>
-                                  <img src={result.artworkUrl100} />
-                                  <div>
-                                      <p>{result.name}</p>
-                                      <p>{result.artistName}</p>
-                                  </div>
-                              </Result>
+                              <Link key={result.id} to={`/album/${result.id}`}>
+                                  <Result>
+                                      <img src={result.artworkUrl100} />
+                                      <div>
+                                          <p>{result.name}</p>
+                                          <p>{result.artistName}</p>
+                                      </div>
+                                  </Result>
+                              </Link>
                           ))
                         : "No results found"}
                 </SearchResults>
@@ -83,8 +86,9 @@ const SearchResults = styled.div`
     border-radius: 0 0 5px 5px;
     top: 30px;
     overflow-y: auto;
+    background-color: rgb(235, 234, 223);
 
-    & > div:not(:last-child) {
+    a:not(:last-child) > div {
         margin-bottom: 10px;
     }
 `;
@@ -104,7 +108,7 @@ const Result = styled.div`
     }
 
     div {
-        width: 225px;
+        width: calc(100% - 45px);
     }
 
     div p {
