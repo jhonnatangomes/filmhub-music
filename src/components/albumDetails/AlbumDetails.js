@@ -1,17 +1,18 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router";
 import Bookmark from "./Bookmark";
 import Loading from "../loading/Loading";
-import AlbumsContext from "../../contexts/AlbumsContext";
+import { getAlbums } from "../../services/api";
 
 export default function AlbumDetails() {
     const [album, setAlbum] = useState(null);
-    const { albums } = useContext(AlbumsContext);
     const { id } = useParams();
 
     useEffect(() => {
-        setAlbum(albums.find((album) => album.id === id));
+        getAlbums().then((res) =>
+            setAlbum(res.data.feed.results.find((album) => album.id === id))
+        );
     }, []);
 
     return (
