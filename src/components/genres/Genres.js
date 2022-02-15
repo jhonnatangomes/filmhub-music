@@ -1,7 +1,17 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { getSongs } from "../../services/api";
 import Song from "../song/Song";
+import groupByGenre from "./groupByGenre";
 
 export default function Genres() {
+    const [songs, setSongs] = useState(null);
+    useEffect(() => {
+        getSongs().then((res) => {
+            groupByGenre(res.data.feed.results);
+        });
+    }, []);
+
     return (
         <>
             <Container>
@@ -54,7 +64,7 @@ const Songs = styled.div`
     overflow-x: auto;
     overflow-y: hidden;
 
-    > div {
+    > div:not(:last-child) {
         margin-right: 20px;
     }
 `;
