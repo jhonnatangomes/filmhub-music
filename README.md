@@ -4,10 +4,14 @@ Welcome to Filmhub Music. This is an app where you can view information about yo
 
 ## How to run
 
-Just clone the repository in your machine:
+First clone the repository in your machine:
 
     git clone https://github.com/jhonnatangomes/filmhub-music
     cd filmhub-music
+
+Then, install dependencies:
+
+    npm install
 
 You can then start the project doing:
 
