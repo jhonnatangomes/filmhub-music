@@ -1,16 +1,15 @@
-import { useContext, useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import AlbumsContext from "../../contexts/AlbumsContext";
 import { getAlbums } from "../../services/api";
 import Album from "../album/Album";
 import groupByGenre from "./groupByGenre";
 
 export default function Genres() {
-    const { albums, setAlbums } = useContext(AlbumsContext);
+    const [albums, setAlbums] = useState(null);
+
     useEffect(() => {
         getAlbums().then((res) => {
-            const albumsByGenre = groupByGenre(res.data.feed.results);
-            setAlbums(albumsByGenre);
+            setAlbums(groupByGenre(res.data.feed.results));
         });
     }, []);
 
@@ -27,6 +26,7 @@ export default function Genres() {
                                     imageUrl={album.artworkUrl100}
                                     albumName={album.name}
                                     artistName={album.artistName}
+                                    id={album.id}
                                 />
                             ))}
                         </Albums>

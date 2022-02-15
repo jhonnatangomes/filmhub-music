@@ -1,15 +1,18 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-export default function Album({ imageUrl, albumName, artistName }) {
+export default function Album({ imageUrl, albumName, artistName, id }) {
     return (
         <Container>
-            <AlbumContainer>
-                <img src={imageUrl} />
-            </AlbumContainer>
-            <AlbumDetails>
-                <p>{albumName}</p>
-                <p>{artistName}</p>
-            </AlbumDetails>
+            <Link to={`/album/${id}`}>
+                <AlbumContainer>
+                    <img src={imageUrl} />
+                </AlbumContainer>
+                <AlbumDetails>
+                    <p>{albumName}</p>
+                    <p>{artistName}</p>
+                </AlbumDetails>
+            </Link>
         </Container>
     );
 }
